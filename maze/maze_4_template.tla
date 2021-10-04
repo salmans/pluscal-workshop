@@ -26,7 +26,7 @@ while TRUE do
     either
       Up: if x > 1 /\ maze[x - 1][y] /= "#" then
         x := x - 1;
-        breadcrumb := Append(breadcrumb, "Up")
+        breadcrumb := Append(breadcrumb, "Up");
       end if;
     or
       Down: if x < 14 /\ maze[x + 1][y] /= "#" then

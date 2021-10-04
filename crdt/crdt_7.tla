@@ -1,7 +1,7 @@
---------------------------- MODULE crdt_workshop ---------------------------
+--------------------------- MODULE crdt ---------------------------
 EXTENDS Integers, Sequences, FiniteSets
 
-CONSTANTS NULL, Processes, MaxUpdates, Lossy, MaxDups
+CONSTANTS NULL, Processes, MaxUpdates, Drop, Reorder, MaxDups
 
 \* Operators:
 Max(x, y) == IF x > y THEN x ELSE y
@@ -77,10 +77,10 @@ process Network = 0
     while TRUE do
       if msg_queue[proc_ids[i]] /= <<>> then
         either \* Drop a message
-          if Lossy then
+          if Drop then
             msg_queue[proc_ids[i]] := Tail(msg_queue[proc_ids[i]]);
           end if;
-        or \* Reorder a message
+        or \* Duplicate a message
           if dups < MaxDups then
             msg_queue[proc_ids[i]] := Append(
               msg_queue[proc_ids[i]], 
@@ -89,10 +89,12 @@ process Network = 0
             dups := dups + 1;
           end if;
         or \* Reorder a message
-          msg_queue[proc_ids[i]] := Append(
-            Tail(msg_queue[proc_ids[i]]), 
-            Head(msg_queue[proc_ids[i]])
-          );
+          if Reorder then
+            msg_queue[proc_ids[i]] := Append(
+              Tail(msg_queue[proc_ids[i]]), 
+              Head(msg_queue[proc_ids[i]])
+            );
+          end if;
         end either;
       end if;
       i := (i % Cardinality(Processes)) + 1;

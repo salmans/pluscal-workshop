@@ -1,4 +1,4 @@
---------------------------- MODULE crdt_workshop ---------------------------
+--------------------------- MODULE crdt ---------------------------
 EXTENDS Integers, Sequences, FiniteSets
 
 CONSTANTS NULL, Processes, MaxUpdates

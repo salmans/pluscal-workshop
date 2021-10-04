@@ -26,22 +26,22 @@ while TRUE do
     either
       Up: if x > 1 /\ maze[x - 1][y] /= "#" then
         x := x - 1;
-        breadcrumb := Append(breadcrumb, "Up")
+        breadcrumb := Append(breadcrumb, "Up");
       end if;
     or
       Down: if x < 14 /\ maze[x + 1][y] /= "#" then
         x := x + 1;
-        breadcrumb := Append(breadcrumb, "Down")
+        breadcrumb := Append(breadcrumb, "Down");
       end if;
     or
       Left: if y > 1 /\ maze[x][y - 1] /= "#" then
         y := y - 1;
-        breadcrumb := Append(breadcrumb, "Left")
+        breadcrumb := Append(breadcrumb, "Left");
       end if;
     or
       Right: if y < 14 /\ maze[x][y + 1] /= "#" then
         y := y + 1;
-        breadcrumb := Append(breadcrumb, "Right")
+        breadcrumb := Append(breadcrumb, "Right");
       end if;
     end either; 
 end while;
